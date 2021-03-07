@@ -1,0 +1,45 @@
+package com.classes_for_tutorial;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.IntStream;
+
+
+public class Main {
+
+    public static String dag(){
+        //Vanaf hier bepaal je de dag van de rit:
+        Scanner scanner = new Scanner(System.in);
+
+        String[] dagenVanDeWeek = {"maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"};
+        System.out.println("Welke dag heb je gereden?");
+
+        // initialiseren van dag van rit:
+        String dag;
+
+        //welke dag wordt hier bekend:
+        while(true) {
+            dag = scanner.next().toLowerCase();
+            boolean contains = Arrays.asList(dagenVanDeWeek).contains(dag);
+            if(contains == true){
+                break;
+            }
+            System.out.println("Geef een geldige dag op");
+        }
+        System.out.println("Je hebt gekozen " + dag);
+        //Je hebt nu de dag van de rit ingevoerd
+        return(dag);
+    }
+
+
+
+    public static void main(String[] args) {
+        String dag = dag();
+
+
+
+    }
+}
