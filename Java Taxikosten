@@ -7,6 +7,30 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+class Tijd {
+
+    // geeft aan welk uur je bent begonnen
+    public static Integer uur(){
+        Scanner scanner = new Scanner(System.in);
+
+
+        // initialiseren van beginuur:
+        Integer uur;
+
+        //uiteindelijke uur wordt hier bekend:
+        while(true) {
+            uur = scanner.nextInt();
+            int[] uren = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+            boolean contains = Arrays.asList(uren).contains(uur);
+            if (contains = true){
+                break;
+            }
+            System.out.println("Geef een geldig antwoord op");
+        };
+        //Je hebt nu de dag van de rit ingevoerd
+        return(uur);
+    }
+}
 
 public class Main {
 
@@ -15,7 +39,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String[] dagenVanDeWeek = {"maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"};
-        System.out.println("Welke dag heb je gereden?");
+
 
         // initialiseren van dag van rit:
         String dag;
@@ -29,7 +53,7 @@ public class Main {
             }
             System.out.println("Geef een geldige dag op");
         }
-        System.out.println("Je hebt gekozen " + dag);
+
         //Je hebt nu de dag van de rit ingevoerd
         return(dag);
     }
@@ -37,8 +61,6 @@ public class Main {
     //berekent aantal kilometers rit afhankelijk van wat je invult:
     public static String aantalKilometers(){
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Hoeveel kilometer heb je gereden?");
 
         // initialiseren van aantalKilometers:
         String aantalKilometers;
@@ -52,7 +74,7 @@ public class Main {
             }
             System.out.println("Geef een geldig antwoord op");
         };
-        System.out.println("Je hebt ingevoerd " + aantalKilometers);
+
         //Je hebt nu de dag van de rit ingevoerd
         return(aantalKilometers);
     }
@@ -60,7 +82,22 @@ public class Main {
 
 
     public static void main(String[] args) {
+        //info over de dag van de rit:
+        System.out.println("Welke dag heb je gereden?");
         String dag = dag();
+        System.out.println("Je hebt ingevuld " + dag);
+
+        //info over het aantal kilometers van de rit:
+        System.out.println("Hoeveel kilometer heb je gereden?");
         String aantalKilometers = aantalKilometers();
+        System.out.println("Je hebt ingevuld " + aantalKilometers + " kilometer");
+
+        //info over de tijd van de rit:
+        System.out.println("Voer het uur in waarop je bent begonnen, dus tussen 0 en 23");
+        Tijd.uur();
+        System.out.println("Voer de minuut in waarop je bent begonnen, dus tussen 0 en 59");
+        System.out.println("Voer het uur in waarop je bent geëindigd, dus tussen 0 en 24");
+        System.out.println("Voer de minuut in waarop je bent geëeindigd, dus tussen 0 en 59");
+
     }
 }
