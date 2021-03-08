@@ -10,8 +10,8 @@ import java.util.stream.IntStream;
 
 public class Main {
 
+    //berekent de dag van de rit afhankelijk van wat je invult:
     public static String dag(){
-        //Vanaf hier bepaal je de dag van de rit:
         Scanner scanner = new Scanner(System.in);
 
         String[] dagenVanDeWeek = {"maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"};
@@ -34,12 +34,33 @@ public class Main {
         return(dag);
     }
 
+    //berekent aantal kilometers rit afhankelijk van wat je invult:
+    public static String aantalKilometers(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Hoeveel kilometer heb je gereden?");
+
+        // initialiseren van aantalKilometers:
+        String aantalKilometers;
+
+        //de hoeveelheid wordt hier bekend:
+        while(true) {
+            aantalKilometers = scanner.next();
+            boolean correct = aantalKilometers.matches("[0-9]+");
+            if (correct == true){
+                break;
+            }
+            System.out.println("Geef een geldig antwoord op");
+        };
+        System.out.println("Je hebt ingevoerd " + aantalKilometers);
+        //Je hebt nu de dag van de rit ingevoerd
+        return(aantalKilometers);
+    }
+
 
 
     public static void main(String[] args) {
         String dag = dag();
-
-
-
+        String aantalKilometers = aantalKilometers();
     }
 }
