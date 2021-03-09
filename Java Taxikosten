@@ -107,14 +107,38 @@ public class Main {
 
         //prijs per gereden minuut:
         Double tijdPrijs = 0.25 * ( (einduur - beginuur)*60 + (eindminuut - beginminuut) );
-        
+
         //maar daar komen nog 0,20 ct. extra kosten bij:
-        Integer uur;
-        while(uur < 8){
-            
+        if(beginuur < 8){
+            if(einduur < 8) {
+                tijdPrijs += 0.20 * ((einduur - beginuur) * 60 + (eindminuut - beginminuut));
+            }
+            else{tijdPrijs += 0.20 + ((8 - beginuur) * 60 - beginminuut);
+            }
+            if(einduur > 18){
+                tijdPrijs += 0.20 + ((einduur - 18) * 60 + eindminuut);
+            }
         }
-        
-        return(2.0);
+        if(beginuur >= 8){
+            if (beginuur < 18){
+                if (einduur >= 18){
+                    tijdPrijs += 0.20 + ((einduur - 18) * 60 + eindminuut);
+                }
+            }
+            else{
+                tijdPrijs += 0.20 * ( (einduur - beginuur)*60 + (eindminuut - beginminuut) );
+            }
+        }
+
+        Double ritPrijs = kilometerPrijs + tijdPrijs;
+
+        //en daar komt misschien nog weekendtoeslag bij:
+        if ((dag == "vrijdag" && beginuur >= 22) || dag == "zaterdag" || dag == "zondag" ||
+                dag == "maandag" && beginuur < 7){
+            ritPrijs = ritPrijs * 1.15;
+        }
+
+        return(ritPrijs);
     }
 
 
@@ -124,12 +148,10 @@ public class Main {
         //info over de dag van de rit:
         System.out.println("Welke dag heb je gereden?");
         String dag = dag();
-        System.out.println("Je hebt ingevuld " + dag);
 
         //info over het aantal kilometers van de rit:
         System.out.println("Hoeveel kilometer heb je gereden?");
         String aantalKilometers_string = aantalKilometers();
-        System.out.println("Je hebt ingevuld " + aantalKilometers_string + " kilometer");
         Integer aantalKilometers = Integer.parseInt(aantalKilometers_string);
 
         //info over de tijd van de rit:
@@ -149,6 +171,11 @@ public class Main {
         String eindminuut_string = Dagtijd.minuut();
         Byte eindminuut = Byte.parseByte(eindminuut_string);
 
-        //Taxiprijs berekenen
+        //Taxiprijs berekenen:
+        Double taxikosten = Taxikosten(dag, aantalKilometers, beginuur, beginminuut, einduur, eindminuut);
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        String taxikosten_in_euros = currency.format(taxikosten);
+
+        System.out.println("Ritprijs: "+ taxikosten_in_euros);
     }
 }
