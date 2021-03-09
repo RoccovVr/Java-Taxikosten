@@ -7,30 +7,50 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-class Tijd {
+class Dagtijd {
 
     // geeft aan welk uur je bent begonnen
-    public static Integer uur(){
+    public static String uur(){
         Scanner scanner = new Scanner(System.in);
 
 
-        // initialiseren van beginuur:
-        Integer uur;
+        // initialiseren van uur:
+        String uur;
 
         //uiteindelijke uur wordt hier bekend:
         while(true) {
-            uur = scanner.nextInt();
-            int[] uren = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-            boolean contains = Arrays.asList(uren).contains(uur);
-            if (contains = true){
+            uur = scanner.next();
+            boolean contains = (uur.matches("[0-9]")|| uur.matches("[1][0-9]") || uur.matches("[2][0-3]"));
+            if (contains == true){
                 break;
             }
             System.out.println("Geef een geldig antwoord op");
         };
-        //Je hebt nu de dag van de rit ingevoerd
+        //Je hebt begin-/einduur ingevuld
         return(uur);
     }
+
+    public static String minuut(){
+        Scanner scanner = new Scanner(System.in);
+
+
+        //initialiseren van minuut:
+        String minuut;
+
+        //uiteindelijke minuut wordt hier bekend:
+        while(true){
+            minuut = scanner.next();
+            boolean contains = (minuut.matches("[0-9]") || minuut.matches("[1-5][0-9]"));
+            if (contains == true){
+                break;
+            }
+            System.out.println("Geef een geldig antwoord op");
+        }
+        //Je hebt nu begin-/eindminuut ingevuld
+        return(minuut);
+    }
 }
+
 
 public class Main {
 
@@ -79,6 +99,25 @@ public class Main {
         return(aantalKilometers);
     }
 
+    public static Double Taxikosten(String dag, Integer aantalKilometers, Byte beginuur, Byte beginminuut,
+                                    Byte einduur, Byte eindminuut){
+
+        //prijs per kilometer:
+        Integer kilometerPrijs = aantalKilometers * 1;
+
+        //prijs per gereden minuut:
+        Double tijdPrijs = 0.25 * ( (einduur - beginuur)*60 + (eindminuut - beginminuut) );
+        
+        //maar daar komen nog 0,20 ct. extra kosten bij:
+        Integer uur;
+        while(uur < 8){
+            
+        }
+        
+        return(2.0);
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -89,15 +128,27 @@ public class Main {
 
         //info over het aantal kilometers van de rit:
         System.out.println("Hoeveel kilometer heb je gereden?");
-        String aantalKilometers = aantalKilometers();
-        System.out.println("Je hebt ingevuld " + aantalKilometers + " kilometer");
+        String aantalKilometers_string = aantalKilometers();
+        System.out.println("Je hebt ingevuld " + aantalKilometers_string + " kilometer");
+        Integer aantalKilometers = Integer.parseInt(aantalKilometers_string);
 
         //info over de tijd van de rit:
         System.out.println("Voer het uur in waarop je bent begonnen, dus tussen 0 en 23");
-        Tijd.uur();
-        System.out.println("Voer de minuut in waarop je bent begonnen, dus tussen 0 en 59");
-        System.out.println("Voer het uur in waarop je bent geëindigd, dus tussen 0 en 24");
-        System.out.println("Voer de minuut in waarop je bent geëeindigd, dus tussen 0 en 59");
+        String beginuur_string = Dagtijd.uur();
+        Byte beginuur = Byte.parseByte(beginuur_string);
 
+        System.out.println("Voer de minuut in waarop je bent begonnen, dus tussen 0 en 59");
+        String beginminuut_string = Dagtijd.minuut();
+        Byte beginminuut = Byte.parseByte(beginminuut_string);
+
+        System.out.println("Voer het uur in waarop je bent geëindigd, dus tussen 0 en 24");
+        String einduur_string = Dagtijd.uur();
+        Byte einduur = Byte.parseByte(einduur_string);
+
+        System.out.println("Voer de minuut in waarop je bent geëindigd, dus tussen 0 en 59");
+        String eindminuut_string = Dagtijd.minuut();
+        Byte eindminuut = Byte.parseByte(eindminuut_string);
+
+        //Taxiprijs berekenen
     }
 }
